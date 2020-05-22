@@ -153,6 +153,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/cart/cart_page.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/login_signup_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/main_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
@@ -176,7 +177,8 @@ class CarouselDemo extends StatelessWidget {
         initialRoute: '/',
         routes: {
 //          '/' : (ctx) => ProductDetailScreen(),
-          '/': (ctx) => MainScreen(),
+         // '/': (ctx) => MainScreen(),
+          '/': (ctx) => LoginSignUpScreen(),
           '/basic': (ctx) => BasicDemo(),
           '/image': (ctx) => ImageSliderDemo(),
           '/complicated': (ctx) => CompilcatedImageDemo(),

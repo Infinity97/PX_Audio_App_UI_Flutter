@@ -150,7 +150,8 @@ class SignInService {
 
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
-
+    print("Inside the SIGN IN SERVICE PAGE");
+    // TODO: Call the Spring Backend instead of Firestore.
     if (user != null) {
       final QuerySnapshot result = await Firestore.instance
           .collection("users")
@@ -164,6 +165,7 @@ class SignInService {
             "name": user.displayName,
             "profilePicture": user.photoUrl,
             "email": user.email,
+            "mobile_number" : user.phoneNumber,
           },
         );
         // Saving details to sharedPreferences Map.

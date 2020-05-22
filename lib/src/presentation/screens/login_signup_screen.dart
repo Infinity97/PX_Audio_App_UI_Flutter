@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/main_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/helper.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/sign_in_service.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
@@ -230,7 +231,7 @@ class LoginSignUpScreenState extends State<LoginSignUpScreen> {
     );
   }
 
-  Widget _loginSignUpBox() {
+  Widget  _loginSignUpBox() {
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: SizeConfig.blockSizeVertical * 2,
@@ -270,10 +271,14 @@ class LoginSignUpScreenState extends State<LoginSignUpScreen> {
                   Buttons.GoogleDark,
                   onPressed: () async {
                     _firebaseUser = await SignInService().signInWithGoogle();
+                    print("The Firebase User is :- ${_firebaseUser.phoneNumber} ${_firebaseUser.displayName}", );
+                    // TODO: Check if Mobile is availble. If available then Call backend with Another API.
                     Navigator.of(context).push(
+
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomePage(Helper.convertFirebaseUsertoUserObject(_firebaseUser));
+                          return MainScreen();
+                         //    return HomePage(Helper.convertFirebaseUsertoUserObject(_firebaseUser));
                         },
                       ),
                     );
