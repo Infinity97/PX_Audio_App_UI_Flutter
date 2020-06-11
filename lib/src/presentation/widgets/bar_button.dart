@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
 class BarButton extends StatelessWidget {

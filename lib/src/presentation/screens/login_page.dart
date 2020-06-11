@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/sign_up_page.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/customClipper.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';

@@ -1,6 +1,5 @@
 //import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 //import 'package:flutter/material.dart';
-//import 'package:flutter_ecommerce_youtube/src/screens/home_screen.dart';
 //import 'package:flutter_ecommerce_youtube/src/screens/language.dart';
 //import 'package:flutter_ecommerce_youtube/src/screens/login_page.dart';
 //import 'package:flutter_ecommerce_youtube/src/screens/signup.dart';

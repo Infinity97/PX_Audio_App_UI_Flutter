@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/sign_up_page.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/widgets/submit_button.dart';
 import 'dart:developer' as developer;
-import 'login_page.dart';
 
+// Choose between Business Account or Customer Account
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -12,44 +11,10 @@ class WelcomePage extends StatefulWidget {
   _WelcomePageState createState() => _WelcomePageState();
 }
 class _WelcomePageState extends State<WelcomePage> {
-  Widget _submitButton() {
-    return Material(
-      child: InkWell(
-        onTap: () {
-          developer.log("Clicked on Login Button");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(vertical: 13),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Color(0xffdf8e33).withAlpha(100),
-                    offset: Offset(2, 4),
-                    blurRadius: 8,
-                    spreadRadius: 2)
-              ],
-              color: Colors.white),
-          child: Text(
-            'Login',
-            style: TextStyle(fontSize: 20, color: Color(0xfff7892b)),
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _signUpButton() {
+  Widget _signUpButton(String text, Function onClick) {
     return InkWell(
-      onTap: () {
-        developer.log("Clicked on Register Now");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpWidget()));
-      },
+      onTap: onClick,
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),
@@ -59,7 +24,7 @@ class _WelcomePageState extends State<WelcomePage> {
           border: Border.all(color: Colors.white, width: 2),
         ),
         child: Text(
-          'Create an Account',
+          text,
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
@@ -133,8 +98,6 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,24 +127,11 @@ class _WelcomePageState extends State<WelcomePage> {
               SizedBox(
                 height: 20,
               ),
-              _submitButton(),
+              SubmitButton(text: "Business", onClickFunction: (){}, ),
               SizedBox(
                 height: 20,
               ),
-              _signUpButton(),
-              SizedBox(
-                height: 20,
-              ),
-              _divider(),
-              SignInButton(Buttons.GoogleDark, onPressed: (){}, text: "Sign Up With Google", padding: EdgeInsets.all(0.0)),
-              SignInButton(Buttons.Facebook,onPressed: (){}, text: "Sign Up With Facebook",),
-              SizedBox(
-                height: 20,
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: _skipLogin(),
-              ),
+              _signUpButton("Customer", (){}),
               SizedBox(
                 height: 20,
               ),

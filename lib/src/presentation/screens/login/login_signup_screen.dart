@@ -1,16 +1,16 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/main_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/main/main_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/helper.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/sign_in_service.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 import 'dart:developer' as developer;
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'home_page.dart';
+import '../home_page.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   @override
@@ -441,7 +441,7 @@ class LoginSignUpScreenState extends State<LoginSignUpScreen> {
       /// This is called after the OTP is sent. Gives a `verificationId` and `code`
       codeSent: codeSent,
 
-      /// After automatic code retrival `tmeout` this function is called
+      /// After automatic code retreival `timeout` this function is called
       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     ); // All the callbacks are above
   }
@@ -536,3 +536,4 @@ class LoginSignUpScreenState extends State<LoginSignUpScreen> {
     );
   }
 }
+

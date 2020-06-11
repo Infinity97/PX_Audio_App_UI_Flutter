@@ -2,7 +2,7 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/helper.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
 class Post {

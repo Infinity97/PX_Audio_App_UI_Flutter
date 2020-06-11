@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/login_signup_screen.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/login/login_signup_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'dart:developer' as developer;
 
 final GlobalKey<LoginSignUpScreenState> loginSignUpScreenGlobalKey =

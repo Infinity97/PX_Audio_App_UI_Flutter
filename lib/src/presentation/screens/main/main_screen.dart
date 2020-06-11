@@ -1,33 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce_youtube/src/data/entity/AppBarTitle.dart';
 import 'package:flutter_ecommerce_youtube/src/data/repository/impl/UsersRepositoryImpl.dart';
+import 'package:flutter_ecommerce_youtube/src/data/repository/impl/notifications_repository_impl.dart';
 import 'package:flutter_ecommerce_youtube/src/data/repository/users_repository.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/cart/cart_page.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/cart/cart_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/dashboard/dashboard_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/home/home_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/invite/invite_bloc/bloc.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/invite/invite_screen.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/product_detail_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/products/products_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/products_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/screens/service_screen.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/drawer.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/search_bar.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/routes/routes.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/enums/bottom_navigation_menu_enum.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/enums/user_type_enum.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/helper.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 import 'dart:developer' as developer;
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
-import 'home_screen.dart';
-import 'language.dart';
-import 'login_page.dart';
-import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({Key key}) : super(key: key);
+  int numberOfNotification;
+  MainScreen({Key key, this.numberOfNotification = 0}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -40,10 +36,13 @@ class _MainScreenState extends State<MainScreen> {
   bool showSearchBar = true;
   TabController _tabController;
   String _appBarTitle = null;
+  int _numberOfNotification;
+
   @override
   void initState() {
     super.initState();
     _scrollController = new ScrollController();
+    _numberOfNotification = widget.numberOfNotification;
   }
 
   @override
@@ -55,8 +54,8 @@ class _MainScreenState extends State<MainScreen> {
         case 0:
           return HomeScreen();
         case 1:
-          return CartPage();
-//          return ProductsScreen();
+          //        return CartPage();
+          return ProductsScreen();
         case 2:
           return BlocProvider(
               create: (context) =>
@@ -68,14 +67,8 @@ class _MainScreenState extends State<MainScreen> {
           );
         default:
           return DashboardScreen();
-//          return ListView.builder(
-//              itemCount: 100,
-//              itemBuilder: (BuildContext context, int index) {
-//                return new Text("Item 5 $index");
-//              });
       }
     }
-
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -87,7 +80,8 @@ class _MainScreenState extends State<MainScreen> {
                   showSearchBar: showSearchBar,
                   tabController: _tabController,
                   appBarTitle: _appBarTitle,
-                  ),
+                  numberOfNotification: _numberOfNotification,
+                ),
               ];
             },
             body: Container(
@@ -97,48 +91,6 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       drawer: DrawerWidget(),
-// Fancy Bottom Navigation.
-//      bottomNavigationBar: Container(
-//          height: SizeConfig.blockSizeVertical * 20,
-//          child: FancyBottomNavigation(
-//            circleColor: ColorConstants.orange,
-//            textColor: ColorConstants.orange,
-//            barBackgroundColor: ColorConstants.white,
-//            inactiveIconColor: ColorConstants.orange,
-//            tabs: [
-//              TabData(
-//                  iconData: Icons.home,
-//                  title: "Home",
-//                  onclick: () => Navigator.of(context).push(
-//                      MaterialPageRoute(builder: (context) => WelcomePage()))),
-//              TabData(
-//                  iconData: Icons.category,
-//                  title: "Products",
-//                  onclick: () {
-//                    developer.log("This is Button 3");
-//                  }),
-//              TabData(
-//                  iconData: Icons.person_add,
-//                  title: "Earn",
-//                  onclick: () {
-//                    developer.log("This is Button 2");
-//                  }),
-//              TabData(
-//                  iconData: Icons.build,
-//                  title: "Service",
-//                  onclick: () {
-//                    developer.log("This is Button 4");
-//                  }),
-//            ],
-//            initialSelection: 0,
-//            key: bottomNavigationKey,
-//            onTabChangedListener: (position) {
-//              setState(() {
-//                currentPage = position;
-//              });
-//            },
-//          ),
-//      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
         type: BottomNavigationBarType.fixed,
@@ -179,27 +131,23 @@ class _MainScreenState extends State<MainScreen> {
               showSearchBar = true;
             });
           }
-          if (currentPage == BottomNavigationEnum.Home.index){
+          if (currentPage == BottomNavigationEnum.Home.index) {
             setState(() {
               _appBarTitle = null;
             });
-          }
-          else if (currentPage == BottomNavigationEnum.Products.index){
+          } else if (currentPage == BottomNavigationEnum.Products.index) {
             setState(() {
               _appBarTitle = "Categories";
             });
-          }
-          else if (currentPage == BottomNavigationEnum.Invite.index){
+          } else if (currentPage == BottomNavigationEnum.Invite.index) {
             setState(() {
               _appBarTitle = "Invite & Earn";
             });
-          }
-          else if (currentPage == BottomNavigationEnum.Dashboard.index){
+          } else if (currentPage == BottomNavigationEnum.Dashboard.index) {
             setState(() {
               _appBarTitle = "Dashboard";
             });
-          }
-          else if (currentPage == BottomNavigationEnum.Service.index){
+          } else if (currentPage == BottomNavigationEnum.Service.index) {
             setState(() {
               _appBarTitle = "Help";
             });
@@ -216,7 +164,13 @@ class FloatingAppBar extends StatelessWidget {
   bool showSearchBar;
   TabController tabController;
   String appBarTitle;
-  FloatingAppBar({this.showSearchBar, this.tabController,this.appBarTitle, Key key})
+  int numberOfNotification;
+  FloatingAppBar(
+      {this.numberOfNotification,
+      this.showSearchBar,
+      this.tabController,
+      this.appBarTitle,
+      Key key})
       : super(key: key);
 
   @override
@@ -224,11 +178,24 @@ class FloatingAppBar extends StatelessWidget {
     return SliverAppBar(
       title: Container(
         alignment: Alignment.topLeft,
-        child: appBarTitle == null ?
-        Center(child: Image(
-    image: AssetImage('assets/PX_Audio_Logo.jpg'),
-    height: SizeConfig.blockSizeVertical * 6,
-    ),) : Center(child: Text(appBarTitle, style: TextStyle(color: ColorConstants.white, fontWeight: FontWeight.w900, fontSize: 21), textAlign: TextAlign.center,),),
+        child: appBarTitle == null
+            ? Center(
+                child: Image(
+                  image: AssetImage('assets/PX_Audio_Logo.jpg'),
+                  width: SizeConfig.blockSizeHorizontal * 30,
+                  height: SizeConfig.blockSizeVertical * 6,
+                ),
+              )
+            : Center(
+                child: Text(
+                  appBarTitle,
+                  style: TextStyle(
+                      color: ColorConstants.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 21),
+                  textAlign: TextAlign.center,
+                ),
+              ),
       ),
       expandedHeight: showSearchBar
           ? SizeConfig.blockSizeVertical * 15
@@ -236,25 +203,55 @@ class FloatingAppBar extends StatelessWidget {
       //flexibleSpace: _floatingAppBarContentWidget(),
       actions: <Widget>[
         Container(
-          padding: EdgeInsets.all(2),
-          child: GestureDetector(
-            onTap: () {},
-            child: Icon(
-              Icons.notifications,
-              size: SizeConfig.blockSizeVertical * 4,
-            ),
-          ),
-        ),
+            padding: EdgeInsets.fromLTRB(0, 13, 5, 0),
+            child: Stack(children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, RoutePath.NOTIFICATION_SCREEN);
+                },
+                child: Icon(
+                  Icons.notifications,
+                  size: SizeConfig.blockSizeVertical * 4,
+                ),
+              ),
+              numberOfNotification > 0
+                  ? Positioned(
+                      right: 0,
+                      top: 0,
+                      child: new Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: new BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        constraints: BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          '$numberOfNotification',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  : new Container()
+            ])),
         Container(
           padding: EdgeInsets.fromLTRB(2, 8, 8, 8),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RoutePath.CART_SCREEN);
+            },
             child: Icon(
               Icons.shopping_cart,
               size: SizeConfig.blockSizeVertical * 4,
             ),
           ),
-        )
+        ),
       ],
       bottom: showSearchBar ? FixedAppBar() : TransparentAppBar(),
       //bottom: FixedAppBar(),
@@ -340,52 +337,4 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(0.0);
-}
-
-class ServiceTabBar extends StatefulWidget implements PreferredSizeWidget {
-  TabController tabController;
-  ServiceTabBar({this.tabController, Key key}) : super(key: key);
-
-  @override
-  _ServiceTabBarState createState() => _ServiceTabBarState();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(48.0);
-}
-
-class _ServiceTabBarState extends State<ServiceTabBar>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = widget.tabController ??
-        TabController(
-          vsync: this,
-          length: 2,
-        );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TabBar(
-      controller: _tabController,
-      indicatorColor: ColorConstants.white,
-      tabs: <Widget>[
-        Tab(
-          text: "Register a Product",
-        ),
-        Tab(
-          text: "Service Request",
-        ),
-      ],
-    );
-  }
 }

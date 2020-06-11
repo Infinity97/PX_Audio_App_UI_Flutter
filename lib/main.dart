@@ -145,16 +145,19 @@
 //  }
 //}
 
-
-
-
-
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/cart/cart_page.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/login_signup_screen.dart';
-import 'package:flutter_ecommerce_youtube/src/presentation/screens/main_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_youtube/src/data/repository/impl/notifications_repository_impl.dart';
+import 'package:flutter_ecommerce_youtube/src/data/repository/notifications_repository.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/cart/cart_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/login/login_bloc/bloc.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/login/login_signup_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/main/main_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/notification/notification_bloc/bloc.dart';
+import 'package:flutter_ecommerce_youtube/src/presentation/screens/notification/notification_screen.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/routes/routes.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/simple_bloc_delegate.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
 final List<String> imgList = [
@@ -165,20 +168,34 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
+// void main() => runApp(CarouselDemo());
 
-void main() => runApp(CarouselDemo());
+void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  runApp(
+    BlocProvider(
+      create: (context) {
+        return LoginBloc();
+      },
+      child: CarouselDemo(),
+    ),
+  );
+}
 
 class CarouselDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       theme: ThemeData(primaryColor:ColorConstants.gradientOrangeEnd),
+        theme: ThemeData(primaryColor: ColorConstants.gradientOrangeEnd, backgroundColor: ColorConstants.grey),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
+        initialRoute: RoutePath.MAIN_SCREEN,
+//        initialRoute: '/home',
         routes: {
-//          '/' : (ctx) => ProductDetailScreen(),
-         // '/': (ctx) => MainScreen(),
-          '/': (ctx) => LoginSignUpScreen(),
+          RoutePath.LOGIN: (context) => LoginSignUpScreen(),
+          RoutePath.MAIN_SCREEN: (context) => MainScreen(),
+          RoutePath.NOTIFICATION_SCREEN: (context) => NotificationScreen(),
+          RoutePath.CART_SCREEN: (context) => CartScreen(),
+          '/home': (ctx) => CarouselDemoHome(),
           '/basic': (ctx) => BasicDemo(),
           '/image': (ctx) => ImageSliderDemo(),
           '/complicated': (ctx) => CompilcatedImageDemo(),
@@ -599,11 +616,6 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
   }
 }
 
-
-
-
-
-
 //import 'package:flutter/material.dart';
 //
 //import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
@@ -701,16 +713,6 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
 //      );
 //    }
 //}
-
-
-
-
-
-
-
-
-
-
 
 //import 'dart:async';
 //import 'dart:io' show Platform;

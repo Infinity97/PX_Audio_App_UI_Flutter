@@ -7,7 +7,7 @@ import 'package:flutter_ecommerce_youtube/src/presentation/widgets/ratings_widge
 import 'package:flutter_ecommerce_youtube/src/utils/constants.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/enums/image_slider_type.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/helper.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {

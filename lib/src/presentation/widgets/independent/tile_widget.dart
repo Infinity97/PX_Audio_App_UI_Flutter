@@ -7,19 +7,26 @@ class TileWidget extends StatelessWidget {
   final double elevation;
   final double borderRadius;
   final Color shadowColor;
-  TileWidget({@required this.child, this.onTap = null, this.elevation = 14.0, this.borderRadius = 12.0, this.shadowColor = ColorConstants.orange, Key key}):super(key:key);
+  final Color backgroundColor;
+  TileWidget(
+      {@required this.child,
+      @required this.onTap,
+      this.elevation = 14.0,
+      this.borderRadius = 12.0,
+      this.shadowColor = ColorConstants.gradientOrangeEnd,
+        this.backgroundColor = ColorConstants.white,
+      Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-          elevation: elevation,
-          borderRadius: BorderRadius.circular(borderRadius),
-          shadowColor: shadowColor,
-          child: InkWell
-            (
-              onTap: onTap,
-              child: child
-          )
-      );
-   }
+        elevation: elevation,
+        borderRadius: BorderRadius.circular(borderRadius),
+        shadowColor: shadowColor,
+        color: backgroundColor,
+        child: InkWell(onTap: onTap, child: child),
+    );
+  }
+
 }

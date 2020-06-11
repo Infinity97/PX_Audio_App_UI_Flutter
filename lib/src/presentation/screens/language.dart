@@ -3,8 +3,10 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/app_bar.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/theme.dart';
 import 'dart:developer' as developer;
+
 
 class LanguagePage extends StatelessWidget {
   @override
@@ -35,14 +37,15 @@ class LanguagePage extends StatelessWidget {
       ),
     );
     return Scaffold(
-      appBar: AppBarWidget(
+      appBar: AppBar(
         title: Center(
           child: Text(
             " PX AUDIO ",
             textAlign: TextAlign.center,
             style: AppTheme.titleStyle,
           ),
-        ), // To add PX Audio Logo here
+        ),
+        backgroundColor: ColorConstants.orange,// To add PX Audio Logo here
       ),
       body: ListView(
         children: <Widget>[

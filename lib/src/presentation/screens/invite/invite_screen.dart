@@ -7,12 +7,11 @@ import 'package:flutter_ecommerce_youtube/src/presentation/widgets/bar_button.da
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/independent/stateful_wrapper_widget.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/independent/tile_widget.dart';
 import 'package:flutter_ecommerce_youtube/src/presentation/widgets/submit_button.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 
 class InviteScreen extends StatelessWidget {
   Function _onInit(BuildContext context) {
-    print("Updating the Event inside Invite Screen");
     BlocProvider.of<InviteBloc>(context)
         .add(GetReferralCode(userId: "Something"));
   }
@@ -56,7 +55,7 @@ class InviteScreen extends StatelessWidget {
   }
 
   Widget _blocInviteText() {
-    return BlocBuilder<InviteBloc, InviteState>(builder: (context, state) {
+    return BlocBuilder<InviteBloc,InviteState>(builder:(context, state){
       if (state is InitialInviteState) {
         return _buildInitialInviteText();
       } else if (state is LoadingInviteState) {

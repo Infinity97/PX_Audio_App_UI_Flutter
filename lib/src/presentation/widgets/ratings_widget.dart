@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_youtube/src/data/models/product.dart';
-import 'package:flutter_ecommerce_youtube/src/utils/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/config/size_config.dart';
+import 'package:flutter_ecommerce_youtube/src/utils/static_info/dummy_data.dart';
 import 'package:flutter_ecommerce_youtube/src/utils/theme/color_constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -14,25 +15,19 @@ class RatingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: ONLY FOR TESTING REMOVE LATER
-    product = new Product();
-    product.rating = 4.0;
-    product.numberOfUsersRated = 110;
+    product = DummyData.getProduct();
     bool _isNumberOfUsersAvailable =
         product.numberOfUsersRated != null ? true : false;
 
     SizeConfig().init(context);
     return Container(
-      width: width ?? _isNumberOfUsersAvailable
-          ? SizeConfig.blockSizeHorizontal * 25
-          : SizeConfig.blockSizeHorizontal * 12,
-      height: height ?? SizeConfig.blockSizeVertical * 4,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
         color: ColorConstants.brightGreen,
       ),
       padding: EdgeInsets.symmetric(
-          vertical: SizeConfig.blockSizeVertical * 0.5,
-          horizontal: SizeConfig.blockSizeHorizontal * 2),
+          vertical: SizeConfig.blockSizeVertical*.5,
+          horizontal: SizeConfig.blockSizeHorizontal),
       child: RichText(
         text: TextSpan(
           children: [

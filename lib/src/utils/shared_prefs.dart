@@ -2,37 +2,36 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // Use this class for saving or updating values to Shared Preferences.
 class SharedPrefs {
-
   // A Global List of Keys to save the Variables for Shared preferences.
   String id = "id";
   String name = "name";
   String photoUrl = "photoUrl";
 
-  void setId(dynamic value){
+  void setId(dynamic value) {
     save(id, value);
   }
 
-  void setName(dynamic value){
+  void setName(dynamic value) {
     save(name, value);
   }
 
-  void setPhotoUrl(dynamic value){
+  void setPhotoUrl(dynamic value) {
     save(photoUrl, value);
   }
 
-  dynamic getId(){
+  dynamic getId() {
     get(id);
   }
 
-  dynamic getName(){
+  dynamic getName() {
     get(name);
   }
 
-  dynamic getPhotoUrl(){
+  dynamic getPhotoUrl() {
     get(photoUrl);
   }
 
-  void save(String key, dynamic value) async{
+  void save(String key, dynamic value) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
     if (value is bool) {
       sharedPrefs.setBool(key, value);
@@ -47,16 +46,18 @@ class SharedPrefs {
     }
   }
 
-  dynamic get(String key) async{
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  dynamic get(String key) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     return sharedPreferences.get(key);
   }
 
-   bool isSignedUp(){
-   dynamic id = getId();
-   if(id != null)
-     return true;
-   return false;
+  bool isSignedUp() {
+    dynamic id = getId();
+    if (id != null) return true;
+    return false;
   }
   // TODO: Saving Values for Shared Preferences Everywhere.
+//TODO: Save the User's Login Information in the SharedPrefs.
+// TODO: Save the isfavourite options of the user's products in the phone.
 }
